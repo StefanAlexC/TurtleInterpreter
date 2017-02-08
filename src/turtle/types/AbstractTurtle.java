@@ -5,15 +5,12 @@ import turtle.Turtle;
 import turtle.util.Direction;
 import turtle.util.Pen;
 import turtle.util.Rotation;
-import turtle.util.TurtleType;
 
 public abstract class AbstractTurtle implements Turtle{
 
   protected int x = 0;
   protected int y = 0;
   protected Direction direction;
-
-  protected TurtleType type;
 
   protected Pen penState;
   protected char brush = '*';

@@ -1,7 +1,6 @@
 package turtle.types;
 
 import turtle.Paper;
-import turtle.util.TurtleType;
 
 public class ReflectingTurtle extends AbstractTurtle{
 
@@ -13,7 +12,6 @@ public class ReflectingTurtle extends AbstractTurtle{
    */
   public ReflectingTurtle(int x, int y, Paper paper) {
     super(x, y, paper);
-    type = TurtleType.REFLECTING;
   }
 
   /**

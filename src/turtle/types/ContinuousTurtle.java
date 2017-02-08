@@ -1,7 +1,6 @@
 package turtle.types;
 
 import turtle.Paper;
-import turtle.util.TurtleType;
 
 public class ContinuousTurtle extends AbstractTurtle{
 
@@ -14,7 +13,6 @@ public class ContinuousTurtle extends AbstractTurtle{
    */
   public ContinuousTurtle(int x, int y, Paper paper) {
     super(x, y, paper);
-    type = TurtleType.CONTINUOUS;
   }
 
   /**
