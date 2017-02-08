@@ -2,17 +2,14 @@ package turtle;
 
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import turtle.types.BouncyTurtle;
-import turtle.types.ContinuousTurtle;
-import turtle.types.NormalTurtle;
-import turtle.types.ReflectingTurtle;
-import turtle.types.WrappingTurtle;
+import turtle.types.*;
 import turtle.util.Commands;
 import turtle.util.Pen;
 import turtle.util.Rotation;
-import turtle.util.TurtleType;
 
 public class TurtleInterpreter {
 
@@ -57,7 +54,7 @@ public class TurtleInterpreter {
       case PAPER:
         paperCommand(); break;
       case NEW:
-        newTurtleCommand(); break;
+        newTurtleCommand(""); break;
       case PEN:
         penCommand(); break;
       case MOVE:
@@ -120,12 +117,23 @@ public class TurtleInterpreter {
    * Process the newTurtle command
    * new: type turtle_name x y
    */
-  private void newTurtleCommand() {
+  private Turtle newTurtleCommand(String nameHeader) {
     String type = input.next();
-    String turtleName = input.next();
-    int x = input.nextInt();
-    int y = input.nextInt();
-    turtleMap.put(turtleName, createTurtle(type, x, y, paper));
+    String turtleName = nameHeader + input.next();
+    Turtle temp;
+
+    if (type.equals("cluster")) {
+      temp = new ClusterTurtle(clusterCreator(turtleName));
+      turtleMap.put(turtleName, temp);
+    }
+    else {
+      int x = input.nextInt();
+      int y = input.nextInt();
+      temp = createTurtle(type, x, y, paper);
+      turtleMap.put(turtleName, temp);
+    }
+
+    return temp;
   }
 
   /**
@@ -136,7 +144,7 @@ public class TurtleInterpreter {
    * @param paper The paper on which the turtle is created
    * @return The new instance of the turtle
    */
-  private static Turtle createTurtle(String type, int x, int y, Paper paper) {
+  private Turtle createTurtle(String type, int x, int y, Paper paper) {
     switch (type) {
       case "normal": return new NormalTurtle(x, y, paper);
       case "continuous": return new ContinuousTurtle(x, y, paper);
@@ -147,6 +155,24 @@ public class TurtleInterpreter {
         System.err.println("Invalid turtle type");
     }
     return null;
+  }
+
+  /**
+   * Creates a cluster of turtles and reads all the turtles contained by
+   * this cluster
+   * @param name The name of the cluster of turtles
+   * @return The list containing all the turtles that make up this cluster
+   */
+  private List<Turtle> clusterCreator(String name) {
+    List<Turtle> turtles = new LinkedList<>();
+    int numberOfTurtles = input.nextInt();
+
+    for (int i = 0 ; i < numberOfTurtles ; i++) {
+      input.next();
+      turtles.add(newTurtleCommand(name + "."));
+    }
+
+    return turtles;
   }
 
   /**

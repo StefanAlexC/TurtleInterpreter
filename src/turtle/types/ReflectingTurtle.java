@@ -23,18 +23,18 @@ public class ReflectingTurtle extends AbstractTurtle{
   @Override
   protected void edgeOfPaper() {
     //test for corner
-    if (x == 0) {
+    if (x + direction.moveX() < 0) {
       x--;
       direction = direction.reflect(true);
-    } else if (x == paper.getWidth() - 1){
+    } else if (x + direction.moveX() == paper.getWidth()){
       x++;
       direction = direction.reflect(true);
     }
 
-    if (y == 0 ) {
+    if (y + direction.moveY() < 0 ) {
       y--;
       direction = direction.reflect(false);
-    } else if (y == paper.getHeight() - 1) {
+    } else if (y + direction.moveY() == paper.getHeight()) {
       y++;
       direction = direction.reflect(false);
     }
