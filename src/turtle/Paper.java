@@ -6,7 +6,7 @@ public class Paper {
 
   private final int width;
   private final int height;
-  private final char[][] paper;
+  private char[][] paper;
 
   /**
    * Constructor for Paper object
@@ -17,6 +17,7 @@ public class Paper {
     this.width = width;
     this.height = height;
     paper = new char[width][height];
+    initialisePaper();
   }
 
   /**
@@ -42,8 +43,8 @@ public class Paper {
    * @return true if the point is contained or false if otherwise
    */
   public boolean inbound(int x, int y) {
-    return (0 <= x && x <= width) &&
-        (0 <= y && y <= height);
+    return (0 <= x && x < width) &&
+        (0 <= y && y < height);
   }
 
   /**
@@ -54,8 +55,17 @@ public class Paper {
    */
   public void markLocation(int x, int y, char symbol) {
     if (this.inbound(x, y)) {
-      paper[x][y] = symbol; //does it work field is final
+      paper[x][y] = symbol;
     }
+  }
+
+  /**
+   * Initialises the paper with the space character
+   */
+  private void initialisePaper() {
+    for (int i = 0 ; i < width ; i++)
+      for (int j = 0 ; j < height ; j++)
+        paper[i][j] = ' ';
   }
 
   /**
@@ -66,9 +76,9 @@ public class Paper {
   public String toString() {
     String output = "";
 
-    for (int i = height - 1; i >= 0 ; i++) {
-      for (char c : paper[i]) {
-        output += c;
+    for (int j = height - 1 ; j >= 0 ; j--) {
+      for (int i = 0 ; i < width ; i++) {
+        output += paper[i][j];
       }
       output += "\n";
     }

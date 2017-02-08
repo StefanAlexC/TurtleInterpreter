@@ -1,49 +1,33 @@
 package turtle;
 
 import turtle.util.Pen;
+import turtle.util.Rotation;
 
-public class Turtle {
-
-  private int x = 0;
-  private int y = 0;
-  private Pen penState;
-  private char brush = '.';
-  private Paper paper;
+public interface Turtle {
 
   /**
-   * Constructor for the Turtle class
-   * @param x X coordinate
-   * @param y Y coordinate
-   * @param penState State of the Pen (UP/DOWN)
-   * @param paper Paper on which the turtle moves
+   * Changes the pen state
+   * @param pen The new pen state
    */
-  public Turtle(int x, int y, Pen penState, Paper paper) {
-    this.paper = paper;
-    if (paper.inbound(x, y)) {
-      this.x = x;
-      this.y = y;
-      this.penState = penState;
-    } else {
-      System.err.println("Turtle created outside of the assigned paper");
-    }
-  }
+ public void changePenState(Pen pen);
 
   /**
-   * Changes the state of the pen
+   * Changes the brush of the turtle
+   * @param newBrush The new brush character
    */
-  public void changePenState() {
-    penState = penState.opposite();
-  }
+ public void changeBrush(char newBrush);
 
   /**
-   * Changes the brush to a new character;
+   * Rotates the turtle
+   * @param rotation The direction of the rotation
+   * @param times The number of times the turtle rotates
    */
-  public void changeBrush(char newBrush) {
-    brush = newBrush;
-  }
+ public void rotate(Rotation rotation, int times);
 
-
-
-
+  /**
+   * Moves the turtle
+   * @param steps The number of steps the turtle moves
+   */
+ public void moveTurtle(int steps);
 
 }
